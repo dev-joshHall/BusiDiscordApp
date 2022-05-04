@@ -20,3 +20,4 @@ if __name__ == "__main__":
     window = MainWindow(root)
     root.mainloop()
     print("hi")
+    print("hi")
