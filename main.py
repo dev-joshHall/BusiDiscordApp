@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox, IntVar, StringVar, Toplevel, filedialog, Te
 import tkinter as tk
 from User import User
 from Server import Server
+from DataBaseEngine import DataBaseEngine
 #  from PIL import Image, ImageTk
 
 
@@ -10,6 +11,7 @@ class MainWindow:
     def __init__(self, master: tk.Tk, user):
         self.master = master
         self.user = user
+        self.db_engine = DataBaseEngine()
         self.master.title("BusiDiscord")
         self.master.geometry("1000x600+100+50")
         self.master.resizable(width=True, height=True)
@@ -39,6 +41,7 @@ class MainWindow:
             button.pack(side=tk.TOP, anchor="n")
 
         self.home_display()  # start at home on login
+        self.db_engine.select_all()
 
     def home_display(self):
         self.clear_body()
@@ -48,7 +51,7 @@ class MainWindow:
     def friends_display(self):
         self.clear_body()
         ttk.Label(self.body, text="Friends", font=("Garamond", 32)).pack(anchor="w")
-        ttk.Button(self.body, text="Add Friend").pack(anchor="w")
+        ttk.Button(self.body, text="Add Friend ").pack(anchor="w")
         inner_frame = ttk.Frame(self.body)
         inner_frame.pack(anchor="w")
         friend_btns = []
@@ -75,6 +78,7 @@ def main():
     root = tk.Tk()
     server = Server("minecraft", [], [])
     user = User("noobmaster", "nmaster@gmail.com", "pass1234")
+    user.servers.append(server)
     user.servers.append(server)
     user.friends.append(User("asdf", "daf@gamil.com", "password"))
     window = MainWindow(root, user)
